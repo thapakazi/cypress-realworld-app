@@ -45,7 +45,7 @@ jobs:
     - name: List Directories
       id: set-matrix
       run: |
-        echo "::set-output name=matrix::$(ls -d ./cypress/tests/*/ | xargs -n 1 basename | jq -R -s -c 'split(\"\\n\")[:-1] | map({group: .})')"
+        echo "::set-output name=matrix::$(ls -d ./cypress/tests/*/ | xargs -n 1 basename | jq -R -s 'split("\n") | map(select(. != "")) | map({group: .})'"
 
   test:
     needs: prepare-matrix
